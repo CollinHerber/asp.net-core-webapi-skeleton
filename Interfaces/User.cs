@@ -9,6 +9,8 @@ namespace WebApi.Interfaces
     {
         Task<User> Authenticate(string username, string password);
 
+        Task<string> CreateToken(long userId);
+
         Task<List<User>> GetAll();
 
         Task<List<User>> GetByName(string name);

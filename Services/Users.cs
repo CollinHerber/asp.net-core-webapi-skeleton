@@ -14,7 +14,7 @@ using WebApi.Server;
 
 namespace WebApi.Services
 {
-  
+
     public class UserService : IUserService
     {
 
@@ -28,6 +28,23 @@ namespace WebApi.Services
             _dbContext = dbContext;
         }
 
+        public async Task<string> CreateToken(long userId)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, userId.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
         public async Task<User> Authenticate(string username, string password)
         {
             var user = _dbContext.Users.SingleOrDefault(x => x.Username == username && x.Password == password);
@@ -35,23 +52,6 @@ namespace WebApi.Services
             // return null if user not found
             if (user == null)
                 return null;
-
-            // authentication successful so generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            // remove password before returning
-            user.Password = null;
-            user.Token = new AccessToken { TokenString = tokenHandler.WriteToken(token) };
 
             return user;
         }

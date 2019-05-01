@@ -29,7 +29,11 @@ namespace WebApi.Controllers
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
 
-            return Ok(user);
+            var token = await _userService.CreateToken(user.Id);
+
+            return Ok(new {
+                Token = token
+            });
         }
 
         [AllowAnonymous]
