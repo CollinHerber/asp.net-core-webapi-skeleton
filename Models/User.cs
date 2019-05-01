@@ -1,4 +1,5 @@
-﻿namespace WebApi.Models
+﻿using WebApi.Models;
+namespace WebApi.Models
 {
     public class User
     {
@@ -7,5 +8,6 @@
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public AccessToken Token { get; set; }
     }
 }

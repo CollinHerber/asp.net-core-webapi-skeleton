@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Interfaces.IUserService;
+using WebApi.Interfaces;
 using WebApi.Server;
 using Microsoft.EntityFrameworkCore;
 

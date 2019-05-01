@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 
-namespace WebApi.Interfaces.IUserService
+namespace WebApi.Interfaces
 {
     public interface IUserService
     {

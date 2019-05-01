@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using WebApi.Interfaces.IUserService;
+using WebApi.Interfaces;
 using WebApi.Models;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {

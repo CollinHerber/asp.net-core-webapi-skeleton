@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Models;
 using WebApi.Helpers;
-using WebApi.Interfaces.IUserService;
+using WebApi.Interfaces;
 using System.Threading.Tasks;
 using WebApi.Server;
 
@@ -49,9 +49,9 @@ namespace WebApi.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             // remove password before returning
             user.Password = null;
+            user.Token = new AccessToken { TokenString = tokenHandler.WriteToken(token) };
 
             return user;
         }
