@@ -1,6 +1,6 @@
-# Chicks Gold API Server
+# Net Core Example API
 
-Chicks Gold API Server platform code base.
+Net Core Example API
 
 ## Creating Database Migrations (Visual Studio):
 
@@ -18,16 +18,4 @@ Build API project
 ```
     cd "src/Api"
     dotnet publish --configuration Release
-```
-
-Release API project
-```
-    sudo systemctl stop chicks-gold-api.service
-    scp
-    sudo systemctl start chicks-gold-api.service
-```
-
-View Log Files
-```
-    journalctl -fxeu chicks-gold-api.service
 ```
