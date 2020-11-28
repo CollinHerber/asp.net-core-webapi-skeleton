@@ -34,7 +34,7 @@ namespace NetCoreExample.Server.Lib.Extensions
             {
                 var connectionString = configuration.DbConnectionString();
 
-                options.UseMySql(connectionString);
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             });
         }
     }

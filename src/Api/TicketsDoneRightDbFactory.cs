@@ -21,7 +21,7 @@ namespace NetCoreExample.Server.Api
             var builder = new DbContextOptionsBuilder<NetCoreExampleDbContext>();
 
             var connectionString = configuration.DbConnectionString();
-            builder.UseMySql(connectionString, (options) => { 
+            builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), (options) => { 
                 options.EnableRetryOnFailure();
             });
 
